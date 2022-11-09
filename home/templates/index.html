@@ -1,14 +1,9 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <h1>Hello Home</h1>
-</body>
-</html>
+{% extends 'homebase.html' %}
+
+{% block title %}{{setting.title}}{% endblock %}
+{% block keyword %}{{setting.keyword}}{% endblock %}
+{% block description %}{{setting.description}}{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+{% block slider %}{% include 'slider.html' %}{% endblock %}
+{% block body %}{% include 'body.html' %}{% endblock %}

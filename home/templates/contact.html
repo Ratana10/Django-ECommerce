@@ -1,0 +1,68 @@
+{% extends 'homebase.html' %}
+
+{% block title %}{{setting.title}}{% endblock %}
+{% block keyword %}{{setting.keyword}}{% endblock %}
+{% block description %}{{setting.description}}{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+{% block body %}
+
+<!-- BREADCRUMB -->
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="contactForm">
+                    <p>Already a customer ? <a href="#">Login</a></p>
+                    <div class="section-title">
+                        <h3 class="title">Contact Form</h3>
+                    </div>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form id="checkout-form" class="clearfix" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="form-group">
+                            <input class="input " type="submit" value="Send Message">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="">
+                    <div class="section-title">
+                        <h4 class="title">Contact Information</h4>
+                    </div>
+                    <div>
+                        {{ setting.contact | safe }}
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
+
+{% endblock %}

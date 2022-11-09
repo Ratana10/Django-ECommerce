@@ -1,7 +1,12 @@
 from django.db import models
-from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
+from ckeditor_uploader.fields import RichTextUploadingField
+from mptt.fields import TreeForeignKey
+from mptt.models import MPTTModel
+
+
+
 class Category(models.Model):
     
     STATUS = (
