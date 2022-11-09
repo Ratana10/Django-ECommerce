@@ -8,35 +8,19 @@
             <!-- home slick -->
             <div id="home-slick">
                 <!-- banner -->
-                <div class="banner banner-1">
-                    <img src="{% static '' %}./img/banner01.jpg" alt="">
-                    <div class="banner-caption text-center">
-                        <h1>Bags sale</h1>
-                        <h3 class="white-color font-weak">Up to 50% Discount</h3>
-                        <button class="primary-btn">Shop Now</button>
+                {% for pro in product %}
+                    <div class="banner banner-1">
+                        <img src="{{pro.image.url}}"  style="height: 500px; width: 1200px;" >
+                        <div class="banner-caption text-center">
+                        
+                            <h1 class="primary-color">{{pro.title}}<br>
+                            <span class="white-color font-weak">Up to 50% OFF</span></h1>
+                            <button class="primary-btn"><a href="/product/{{pro.id}}/{{pro.slug}}">Shop Now</a></button>
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
                 <!-- /banner -->
 
-                <!-- banner -->
-                <div class="banner banner-1">
-                    <img src="{% static '' %}./img/banner02.jpg" alt="">
-                    <div class="banner-caption">
-                        <h1 class="primary-color">HOT DEAL<br><span class="white-color font-weak">Up to 50% OFF</span></h1>
-                        <button class="primary-btn">Shop Now</button>
-                    </div>
-                </div>
-                <!-- /banner -->
-
-                <!-- banner -->
-                <div class="banner banner-1">
-                    <img src="{% static '' %}./img/banner03.jpg" alt="">
-                    <div class="banner-caption">
-                        <h1 class="white-color">New Product <span>Collection</span></h1>
-                        <button class="primary-btn">Shop Now</button>
-                    </div>
-                </div>
-                <!-- /banner -->
             </div>
             <!-- /home slick -->
         </div>

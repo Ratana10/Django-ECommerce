@@ -2,14 +2,24 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Setting, ContactForm, ContactMessage
 from django.contrib import messages
+from product.models import Category, Product
 
 # Create your views here.
 def index(request):
     setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
+    product_slider = Product.objects.all().order_by('id')[:3] #first 3 pictures
+    product_latest = Product.objects.all().order_by('-id')[:3] #last 3 pictures
+    product_picked = Product.objects.all().order_by('?')[:3] #random 3 pictures
+    
     context = {
         'setting' : setting,
-        'page' : 'home'
+        'page' : 'home',
+        'category' : category,
+        'product' : product_slider,
     }
+    print("Testing: ", category)
+    
     return render(request, 'index.html', context)
 
 def aboutus(request):
@@ -41,3 +51,8 @@ def contactus(request):
         'form' : form
     }
     return render(request, 'contact.html', context)
+
+
+def category_product(request, id, slug):
+    products = Product.objects.filter(category_id=id)
+    return HttpResponse(products)
