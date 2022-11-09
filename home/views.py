@@ -24,8 +24,10 @@ def index(request):
 
 def aboutus(request):
     setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
     context = {
-        'setting' : setting
+        'setting' : setting,
+        'category' : category,
     }
     return render(request, 'about.html', context)
 
@@ -42,17 +44,27 @@ def contactus(request):
             data.save()  #save data to table
             messages.success(request, 'You message have been sent. Thank for your message')
             return HttpResponseRedirect('/contact')
+       
         
-        
+    category = Category.objects.all()
     setting = Setting.objects.get(pk=1)
     form = ContactForm
     context = {
         'setting' : setting,
-        'form' : form
+        'form' : form,
+        'category' : category
     }
     return render(request, 'contact.html', context)
 
 
 def category_product(request, id, slug):
-    products = Product.objects.filter(category_id=id)
-    return HttpResponse(products)
+    setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
+    product = Product.objects.filter(category_id=id)
+    context = {
+        'setting' : setting,
+        'category' : category,
+        'product' : product,
+    }
+    return render(request, 'categoryProduct.html', context)
+    
