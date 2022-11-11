@@ -229,7 +229,8 @@
                                             
                                                 <td class="total text-center"><strong class="primary-color">$ {{ pro.price }}</strong></td>
                                                 <td class="qty text-center"><input class="input" type="number" value="1"></td>
-                                                <td class="text-right"><button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button></td>
+                                                <!-- <td class="text-right"><button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button></td> -->
+                                                <td class="text-right"><a href="/order/addToShopCart/{{pro.id}}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</a></td>
                                             </tr>
                                         
                                     {% endfor %}  

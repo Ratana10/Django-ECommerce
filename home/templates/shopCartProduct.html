@@ -1,0 +1,91 @@
+{% extends 'homebase.html' %}
+
+{% block title %}{{setting.title}}{% endblock %}
+{% block keyword %}{{setting.keyword}}{% endblock %}
+{% block description %}{{setting.description}}{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+{% block body %}
+{% load static %}
+<!-- BREADCRUMB -->
+
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">About</li>
+        </ul>
+    </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="order-summary clearfix">
+                    <div class="section-title">
+                        <h3 class="title">Order Review</h3>
+                    </div>
+                    <table class="shopping-cart-table table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th></th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Total</th>
+                                <th class="text-right"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pro in shopcart %}
+                            <tr>
+                                <td class="thumb"><img src="{{pro.product.image.url}}" alt=""></td>
+                                <td class="details">
+                                    <a href="/product/{{ pro.product.id }}/{{ pro.product.slug }}">{{pro.product}}</a>
+                                </td>
+                                <td class="price text-center"><strong>${{pro.price}}</strong></td>
+                                <td class="qty text-center"><strong>{{pro.quantity}}</strong></td>
+                                <td class="total text-center"><strong class="primary-color">${{pro.amount}}</strong></td>
+                                <td class="text-right">
+                                <a class="main-btn icon-btn" href="/order/deletefromcart/{{pro.id}}" onclick="return confirm('Delete ! Are you sure you wnat to delete this product')"><i class="fa fa-close"></i></a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>SUBTOTAL</th>
+                                <th colspan="2" class="sub-total">${{total}}</th>
+                            </tr>
+                            <tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>SHIPING</th>
+                                <td colspan="2">Free Shipping</td>
+                            </tr>
+                            <tr>
+                                <th class="empty" colspan="3"></th>
+                                <th>TOTAL</th>
+                                <th colspan="2" class="total">${{total}}</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="pull-right">
+                        <button class="primary-btn">Place Order</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
+
+{% endblock %}

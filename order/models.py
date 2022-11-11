@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from product.models import Product
+from django.forms import ModelForm
 
 # Create your models here.
 
@@ -10,5 +11,17 @@ class ShopCart(models.Model):
     quantity = models.IntegerField()
     
     def __str__(self):
-        return self.product
+        return self.product.title
+    
+    def price(self):
+        return self.product.price
+    
+    def amount(self):
+        return (self.quantity * self.product.price)
+    
+    
+class ShopCartForm(ModelForm):
+    class Meta:
+        model = ShopCart
+        fields = ['quantity']
     

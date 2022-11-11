@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from home import views
+from order import views  as orderViews
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -32,6 +33,7 @@ urlpatterns = [
     path('search/', views.search, name='searchProduct'),
     path('searchAuto/', views.searchAuto, name='searchAuto'),
     path('product/<int:id>/<slug:slug>', views.productDetail, name='productDetail'),
+    path('shopcart/', orderViews.shopCart, name='shopCart'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
