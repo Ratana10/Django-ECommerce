@@ -25,9 +25,13 @@ urlpatterns = [
     path('', include('home.urls')),
     path('home/', include('home.urls')),
     path('product/', include('product.urls')),
+    path('order/', include('order.urls')),
     path('about/', views.aboutus, name='about'),
     path('contact/', views.contactus, name='contact'),
     path('category/<int:id>/<slug:slug>', views.category_product, name='category'),
+    path('search/', views.search, name='searchProduct'),
+    path('searchAuto/', views.searchAuto, name='searchAuto'),
+    path('product/<int:id>/<slug:slug>', views.productDetail, name='productDetail'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

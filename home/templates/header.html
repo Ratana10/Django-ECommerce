@@ -1,3 +1,4 @@
+{% load static %}
 <!-- HEADER -->
 <header>
     <!-- top Header -->
@@ -42,19 +43,61 @@
                 <!-- Logo -->
                 <div class="header-logo">
                     <a class="logo" href="#">
-                        <img src="./img/logo.png" alt="" />
+                        <img src="{% static '' %}./img/logo.png" alt="" />
                     </a>
                 </div>
                 <!-- /Logo -->
 
+                <script>
+
+                    
+                  
+                    function AutoCompleteSelectHandler(event, ui)
+                    {
+                      var selectedObj = ui.item;
+                    }
+
+
+                    $(".ouch").click( function(event) {
+                        alert("You clicked me! ouch!");
+                    });
+                    
+                    $(document).ready( function() {
+
+                        $(function() {
+                            $("#query").autocomplete({
+                              source: "/searchAuto/",
+                              select: function (event, ui) { //item selected
+                                AutoCompleteSelectHandler(event, ui)
+                              },
+                              minLength: 2,
+                            });
+                          });
+                    });
+                    
+                  
+                  </script>
+
                 <!-- Search -->
                 <div class="header-search">
-                    <form>
-                        <input class="input search-input" type="text" placeholder="Enter your keyword" />
-                        <select class="input search-categories">
+                    <form action="/search/" method="post">
+                        {% csrf_token %}
+                        <input name="query" id="query" class="input search-input" type="text" placeholder="Enter your keyword" />
+                        <select name="catid" class="input search-categories">
                             <option value="0">All Categories</option>
-                            <option value="1">Category 01</option>
-                            <option value="1">Category 02</option>
+                            {% load mptt_tags %}
+                            {% recursetree category %}
+            
+                                {% if node.is_leaf_node %}
+                                    <option value="{{ node.id }}">{{ node.title }}</option>
+                                {% endif %}
+                                {% if not node.is_leaf_node %}
+                                    <optgroup label="{{ node.title }}">
+                                        {{ children }} 
+                                    </optgroup>
+                                {% endif %}
+                                
+                            {% endrecursetree %}  
                         </select>
                         <button class="search-btn"><i class="fa fa-search"></i></button>
                     </form>
@@ -117,7 +160,7 @@
                                 <div class="shopping-cart-list">
                                     <div class="product product-widget">
                                         <div class="product-thumb">
-                                            <img src="./img/thumb-product01.jpg" alt="" />
+                                            <img src="{% static '' %}./img/thumb-product01.jpg" alt="" />
                                         </div>
                                         <div class="product-body">
                                             <h3 class="product-price">
@@ -134,7 +177,7 @@
                                     </div>
                                     <div class="product product-widget">
                                         <div class="product-thumb">
-                                            <img src="./img/thumb-product01.jpg" alt="" />
+                                            <img src="{% static '' %}./img/thumb-product01.jpg" alt="" />
                                         </div>
                                         <div class="product-body">
                                             <h3 class="product-price">

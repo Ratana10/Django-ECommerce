@@ -3,5 +3,4 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('addComment/<int:id>', views.addComment, name='addComment'),
 ]
