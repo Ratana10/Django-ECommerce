@@ -38,7 +38,7 @@ urlpatterns = [
     path('shopcart/', orderViews.shopCart, name='shopCart'),
     path('login/', userViews.loginForm, name='login'),
     path('logout/', userViews.logoutFun, name='logout'),
-    path('singup/', userViews.signunForm, name='signup'),
+    path('signup/', userViews.signupForm, name='signup'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

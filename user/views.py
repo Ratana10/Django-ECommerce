@@ -5,7 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import UserProfile
 from django.contrib.auth.decorators import login_required
-
+from .forms import SignUpForm
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -13,7 +14,14 @@ from home.models import Setting, ContactForm, ContactMessage
 
 @login_required(login_url='/login') # Check login
 def index(request):
-    return HttpResponse('User')
+    category = Category.objects.all()
+    current_user = request.user
+    userprofile = UserProfile.objects.get(user_id=current_user.id)
+    context = {
+        'category' : category,
+        'profile' : userprofile,
+    }
+    return render(request, 'userProfile.html', context)
 
 def loginForm(request):
     if request.method == 'POST':
@@ -23,9 +31,7 @@ def loginForm(request):
         if user is not None:
             login(request,user )
             current_user = request.user
-            # print(f'testing {current_user.id}')
             userprofile = UserProfile.objects.get(user_id=current_user.id)
-            print(f'testing {userprofile.image.url}')
             request.session['userimage'] = userprofile.image.url
             return HttpResponseRedirect('/')
         else:
@@ -36,12 +42,36 @@ def loginForm(request):
     }
     return render(request, 'loginForm.html', context)
 
-def signunForm(request):
+def signupForm(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            #create data in profile table for user
+            current_user = request.user
+            data = UserProfile()
+            data.user_id = current_user.id
+            data.image = 'images/uesrs/user.png'
+            data.save()
+            messages.success(request, 'Your account has been created successfully')
+            return HttpResponseRedirect('/')
+        else:
+            messages.warning(request, form.errors)
+            return HttpResponseRedirect('/signup')
+            
+    
+    form = SignUpForm()
     category = Category.objects.all()
     context = {
         'category': category,
+        'form': form,
+        
     }
-    return render(request, 'loginForm.html', context)
+    return render(request, 'signupForm.html', context)
 
 def logoutFun(request):
     logout(request)
