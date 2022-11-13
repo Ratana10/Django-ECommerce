@@ -1,0 +1,77 @@
+{% extends 'homebase.html' %}
+
+{% block title %}Comment {{setting.title}}{% endblock %}
+{% block keyword %}{{setting.keyword}}{% endblock %}
+{% block description %}{{setting.description}}{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+{% block body %}
+{% load static %}
+<!-- BREADCRUMB -->
+
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">User Comment</li>
+        </ul>
+    </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-2">
+                {% include 'sidePanel.html' %}
+            </div>
+
+            <div class="col-md-10">
+                <div class="order-summary clearfix">
+                    <div class="section-title">
+                        <h3 class="title">Comments </h3 </div>
+                    </div>
+
+                        <table class="shopping-cart-table table">
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Product</th>
+                                    <th class="text-left">Rate</th>
+                                    <th class="text-left">Subject</th>
+                                    <th class="text-left">Status</th>
+                                    <th class="text-left">Date</th>
+                                    <th class="text-left">Delete</th>
+                                </tr>
+                            </thead>
+                            {% for comment in comments %}
+                            <tbody>
+                            <tr>
+
+                                <td class="text-left"><a href="/product/{{comment.product_id}}/{{comment.product.slug}}"><strong>{{ comment.product}}</strong></a></td>
+                                <td class="text-left">{{ comment.rate}}</td>
+                                <td class="text-left">{{ comment.subject}}</td>
+                                <td class="text-left">{{ comment.status}}</td>
+                                <td class="text-left">{{ comment.create_at}}</td>
+                                <td class="text-left">
+                                    <a class="main-btn icon-btn" href="/order/deletefromcart/{{pro.id}}" onclick="return confirm('Delete ! Are you sure you wnat to delete this comment')"><i class="fa fa-close"></i></a>
+                                    </td>
+                            </tr>
+                        </tbody>    
+                            {% endfor %}
+
+                        </table>
+
+                    
+
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /section -->
+
+    {% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'homebase.html' %}
+
+{% block title %}Ordered{{setting.title}}{% endblock %}
+{% block keyword %}{{setting.keyword}}{% endblock %}
+{% block description %}{{setting.description}}{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+{% block body %}
+{% load static %}
+<!-- BREADCRUMB -->
+
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">Order List</li>
+        </ul>
+    </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-3">
+                {% include 'sidePanel.html' %}
+            </div>
+
+            <div class="col-md-9">
+                <div class="order-summary clearfix">
+                    <div class="section-title">
+                        <h3 class="title">Order List</h3>
+                    </div>
+                    <table class="shopping-cart-table table">
+                        <thead>
+                            <tr>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">First Name</th>
+                                <th class="text-center">Last Name</th>
+                                <th class="text-center">Total</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-right">Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in orders %}
+                            <tr>
+                                
+                                <td class="text-center"><strong>{{order.id}}</strong></td>
+                                <td class="text-center"><strong>{{order.first_name}}</strong></td>
+                                <td class="text-center"><strong>{{order.last_name}}</strong></td>
+                                <td class="total text-center"><strong class="primary-color">{{order.total}}</strong></td>
+                                <td class="text-center"><strong>{{order.status}}</strong></td>
+                                <td class="text-center"><strong>{{order.create_at}}</strong></td>
+                                <td class="text-right">
+                                        <a href="/user/orderdetail/{{order.id}}" class="primary-btn">Detail</a>
+                                </td>
+                                
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        
+                    </table>
+                    
+                </div>
+
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
+
+{% endblock %}

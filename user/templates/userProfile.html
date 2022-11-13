@@ -25,22 +25,7 @@
         <!-- row -->
         <div class="row">
             <div class="col-md-3">
-                <div class="billing-details">
-                    <div class="section-title">
-                        <h3 class="title">User Panel</h3>
-                    </div>
-                    <div class="aside">
-                    <ul class="list-links">
-                        <li><a href="">User Profile</a></li>
-                        <li><a href="">My Orders</a></li>
-                        <li><a href="">My Order Product</a></li>
-                        <li><a href="">My Comments</a></li>
-                        <li><a href="">My Favorits</a></li>
-                        <li><a href="">My Products</a></li>
-                        <li><a href="/logout">Logout</a></li>
-                    </ul>
-                </div>
-                </div>
+               {% include 'sidePanel.html' %}
             </div>
 
             <div class="col-md-9">
@@ -52,8 +37,8 @@
                  <table class="shopping-cart-table table">
                     <tr>
                         <th class="text-left">
-                            <a href="" class="primary-btn">Update Profile</a>
-                            <a href="" class="primary-btn">Change Password</a>
+                            <a href="update/" class="primary-btn">Update Profile</a>
+                            <a href="password/" class="primary-btn">Change Password</a>
                         </th>
                         <td><img src="{{profile.image.url}}" style="border-radius: 45px; height: 200px; "></td>
                     </tr>

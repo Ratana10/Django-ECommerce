@@ -1,0 +1,89 @@
+{% extends 'homebase.html' %}
+
+{% block title %}Ordered{{setting.title}}{% endblock %}
+{% block keyword %}{{setting.keyword}}{% endblock %}
+{% block description %}{{setting.description}}{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+{% block body %}
+{% load static %}
+<!-- BREADCRUMB -->
+
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">Ordered Item</li>
+        </ul>
+    </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-md-2">
+                {% include 'sidePanel.html' %}
+            </div>
+
+            <div class="col-md-10">
+                <div class="order-summary clearfix">
+                    <div class="section-title">
+                        <h3 class="title">Ordered Item</h3>
+                    </div>
+           
+
+                    <table class="shopping-cart-table table">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Image123</th>
+                                <th class="text-left">Product Name</th>
+                                <th class="text-left">Price</th>
+                                <th class="text-left">Qauatity</th>
+                                <th class="text-left">Amount</th>
+                                <th class="text-left">Status</th>
+                                <th class="text-left">Date</th>
+                                <th class="text-left"></th>
+                            </tr>
+                        </thead>
+                        {% for order in orderitem %}
+                        <tbody>
+                            <tr>
+                                <td class="text-left">
+                                    <a href="/product/{{ order.product_id }}/{{ order.product.slug }}">
+                                        {% if order.variant.image_id > 0 %}
+                                            <img src="{{order.variant.image }}" alt="" style="height: 50px">
+                                        {% else %}
+                                            <img src="{{order.product.image.url}}" alt="" style="height: 50px">
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td class="text-left">{{ order.product.title}} {{ order.variant.size }}   {{ order.variant.color }}</td>
+                                <td class="text-left">{{ order.price}} </td>
+                                <td class="text-left">{{ order.quantity}} </td>
+                                <td class="text-left">{{ order.amount}} </td>
+                                <td class="text-left">{{ order.status}} </td>
+                                <td class="text-left">{{ order.create_at}} </td>
+                                <td class="text-right">
+                                    <a href="/user/orderproductdetail/{{order.id}}/{{order.order.id}}" class="primary-btn">Detail</a>
+                            </td>
+                            </tr>
+                        </tbody>
+                        {% endfor %}
+
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
+
+{% endblock %}
